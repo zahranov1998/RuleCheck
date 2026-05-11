@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RuleCheck.Application\RuleCheck.Application.csproj" />
-    <ProjectReference Include="..\RuleCheck.Infrastructure\RuleCheck.Infrastructure.csproj" />
+	  <ProjectReference Include="..\RuleCheck.Infrastructure\RuleCheck.Infrastructure.csproj" />
+	  <ProjectReference Include="..\RuleCheck.Domain\RuleCheck.Domain.csproj" />
+	  <ProjectReference Include="..\RuleCheck.Application\RuleCheck.Application.csproj" />
   </ItemGroup>
 
 </Project>
