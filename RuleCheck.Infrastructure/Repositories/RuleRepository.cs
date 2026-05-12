@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuleCheck.Infrastructure.Repositories
+namespace RuleCheck.Infrastructure.Repositories;
+
+public class RuleRepository
 {
-    internal class RuleRepository
-    {
-    }
 }
