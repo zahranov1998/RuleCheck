@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RuleCheck.Application\RuleCheck.Application.csproj" />
     <ProjectReference Include="..\RuleCheck.Domain\RuleCheck.Domain.csproj" />
   </ItemGroup>
 
