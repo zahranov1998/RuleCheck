@@ -10,10 +10,7 @@ namespace RuleCheck.Domain.Entities;
 public class Rule
 {
     public int Id { get; set; }
-    public string FieldName { get; set; }
-    public RuleType RuleType { get; set; }
-    public string? Pattern { get; set; }
-    public int? MinValue { get; set; }
-    public int? MaxValue { get; set; }
-    public string ErrorMessage { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public bool IsActive { get; set; } = true;
 }

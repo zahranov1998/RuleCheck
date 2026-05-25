@@ -1,15 +1,23 @@
 ﻿using RuleCheck.Application.Dtos;
 using RuleCheck.Application.Interfaces;
+using RuleCheck.Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuleCheck.Application.Services;
+namespace RuleCheck.Infrastructure.Services;
 
 public class RuleService : IRuleService
 {
+    private readonly RuleCheckDbContext _context;
+
+    public RuleService(RuleCheckDbContext context)
+    {
+        _context = context;
+    }
+
     public Task<IEnumerable<RuleDto>> GetAllAsync()
     {
         throw new NotImplementedException();

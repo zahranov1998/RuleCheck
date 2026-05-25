@@ -14,13 +14,5 @@ public class RuleConfiguration : IEntityTypeConfiguration<Rule>
     public void Configure(EntityTypeBuilder<Rule> builder)
     {
         builder.HasKey(r => r.Id);
-
-        builder.Property(r => r.FieldName)
-            .IsRequired()
-            .HasMaxLength(100);
-
-        builder.Property(r => r.ErrorMessage)
-            .IsRequired()
-            .HasMaxLength(200);
     }
 }
