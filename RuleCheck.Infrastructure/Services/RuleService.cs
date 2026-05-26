@@ -1,11 +1,8 @@
-﻿using RuleCheck.Application.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
+using RuleCheck.Application.Dtos;
 using RuleCheck.Application.Interfaces;
+using RuleCheck.Domain.Entities;
 using RuleCheck.Infrastructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RuleCheck.Infrastructure.Services;
 
@@ -18,28 +15,83 @@ public class RuleService : IRuleService
         _context = context;
     }
 
-    public Task<IEnumerable<RuleDto>> GetAllAsync()
+    public async Task<IEnumerable<RuleDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var rules = await _context.Rules.ToListAsync();
+
+        return rules.Select(r => new RuleDto
+        {
+            Id = r.Id,
+            Name = r.Name,
+            Description = r.Description,
+            IsActive = r.IsActive
+        });
     }
 
-    public Task<RuleDto?> GetByIdAsync(int id)
+    public async Task<RuleDto?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var rule = await _context.Rules.FindAsync(id);
+
+        if (rule == null)
+            return null;
+
+        return new RuleDto
+        {
+            Id = rule.Id,
+            Name = rule.Name,
+            Description = rule.Description,
+            IsActive = rule.IsActive
+        };
     }
 
-    public Task<RuleDto> CreateAsync(RuleDto dto)
+    public async Task<RuleDto> CreateAsync(RuleDto dto)
     {
-        throw new NotImplementedException();
+        var rule = new Rule
+        {
+            Name = dto.Name,
+            Description = dto.Description,
+            IsActive = dto.IsActive
+        };
+
+        _context.Rules.Add(rule);
+        await _context.SaveChangesAsync();
+
+        dto.Id = rule.Id;
+        return dto;
     }
 
-    public Task<RuleDto> UpdateAsync(int id, RuleDto dto)
+    public async Task<RuleDto?> UpdateAsync(int id, RuleDto dto)
     {
-        throw new NotImplementedException();
+        var rule = await _context.Rules.FindAsync(id);
+
+        if (rule == null)
+            return null;
+
+        rule.Name = dto.Name;
+        rule.Description = dto.Description;
+        rule.IsActive = dto.IsActive;
+
+        await _context.SaveChangesAsync();
+
+        return new RuleDto
+        {
+            Id = rule.Id,
+            Name = rule.Name,
+            Description = rule.Description,
+            IsActive = rule.IsActive
+        };
     }
 
-    public Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var rule = await _context.Rules.FindAsync(id);
+
+        if (rule == null)
+            return false;
+
+        _context.Rules.Remove(rule);
+        await _context.SaveChangesAsync();
+
+        return true;
     }
 }

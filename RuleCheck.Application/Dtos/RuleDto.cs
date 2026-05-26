@@ -3,7 +3,7 @@
 public class RuleDto
 {
     public int Id { get; set; }
-    public string Name;
-    public string Description;
-    public bool IsActive;
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+    public bool IsActive { get; set; }
 }

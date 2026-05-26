@@ -20,4 +20,33 @@ public class RulesController : ControllerBase
     {
         return await _ruleService.GetAllAsync();
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var rule = await _ruleService.GetByIdAsync(id);
+        return rule is null ? NotFound() : Ok(rule);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] RuleDto dto)
+    {
+        var created = await _ruleService.CreateAsync(dto);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] RuleDto dto)
+    {
+        var updated = await _ruleService.UpdateAsync(id, dto);
+        return updated is null ? NotFound() : Ok(updated);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var success = await _ruleService.DeleteAsync(id);
+        return success ? NoContent() : NotFound();
+    }
+
 }
