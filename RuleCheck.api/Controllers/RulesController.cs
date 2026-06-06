@@ -16,7 +16,7 @@ public class RulesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<RuleDto>> GetAll()
+    public async Task<IEnumerable<RuleResponse>> GetAll()
     {
         return await _ruleService.GetAllAsync();
     }
@@ -29,16 +29,16 @@ public class RulesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] RuleDto dto)
+    public async Task<IActionResult> Create([FromBody] CreateRuleRequest request)
     {
-        var created = await _ruleService.CreateAsync(dto);
+        var created = await _ruleService.CreateAsync(request);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, [FromBody] RuleDto dto)
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateRuleRequest request)
     {
-        var updated = await _ruleService.UpdateAsync(id, dto);
+        var updated = await _ruleService.UpdateAsync(id, request);
         return updated is null ? NotFound() : Ok(updated);
     }
 
@@ -48,5 +48,4 @@ public class RulesController : ControllerBase
         var success = await _ruleService.DeleteAsync(id);
         return success ? NoContent() : NotFound();
     }
-
 }

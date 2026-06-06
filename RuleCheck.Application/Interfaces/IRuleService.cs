@@ -9,9 +9,9 @@ namespace RuleCheck.Application.Interfaces;
 
 public interface IRuleService
 {
-    Task<IEnumerable<RuleDto>> GetAllAsync();
-    Task<RuleDto?> GetByIdAsync(int id);
-    Task<RuleDto> CreateAsync(RuleDto dto);
-    Task<RuleDto> UpdateAsync(int id, RuleDto dto);
+    Task<IEnumerable<RuleResponse>> GetAllAsync();
+    Task<RuleResponse?> GetByIdAsync(int id);
+    Task<RuleResponse> CreateAsync(CreateRuleRequest request);
+    Task<RuleResponse?> UpdateAsync(int id, UpdateRuleRequest request);
     Task<bool> DeleteAsync(int id);
 }

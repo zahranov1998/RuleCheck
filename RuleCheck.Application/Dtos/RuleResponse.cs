@@ -1,6 +1,6 @@
 ﻿namespace RuleCheck.Application.Dtos;
 
-public class RuleDto
+public class RuleResponse
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;

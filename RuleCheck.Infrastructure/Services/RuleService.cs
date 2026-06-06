@@ -15,11 +15,11 @@ public class RuleService : IRuleService
         _context = context;
     }
 
-    public async Task<IEnumerable<RuleDto>> GetAllAsync()
+    public async Task<IEnumerable<RuleResponse>> GetAllAsync()
     {
         var rules = await _context.Rules.ToListAsync();
 
-        return rules.Select(r => new RuleDto
+        return rules.Select(r => new RuleResponse
         {
             Id = r.Id,
             Name = r.Name,
@@ -28,14 +28,14 @@ public class RuleService : IRuleService
         });
     }
 
-    public async Task<RuleDto?> GetByIdAsync(int id)
+    public async Task<RuleResponse?> GetByIdAsync(int id)
     {
         var rule = await _context.Rules.FindAsync(id);
 
         if (rule == null)
             return null;
 
-        return new RuleDto
+        return new RuleResponse
         {
             Id = rule.Id,
             Name = rule.Name,
@@ -44,36 +44,41 @@ public class RuleService : IRuleService
         };
     }
 
-    public async Task<RuleDto> CreateAsync(RuleDto dto)
+    public async Task<RuleResponse> CreateAsync(CreateRuleRequest request)
     {
         var rule = new Rule
         {
-            Name = dto.Name,
-            Description = dto.Description,
-            IsActive = dto.IsActive
+            Name = request.Name,
+            Description = request.Description,
+            IsActive = true // default
         };
 
         _context.Rules.Add(rule);
         await _context.SaveChangesAsync();
 
-        dto.Id = rule.Id;
-        return dto;
+        return new RuleResponse
+        {
+            Id = rule.Id,
+            Name = rule.Name,
+            Description = rule.Description,
+            IsActive = rule.IsActive
+        };
     }
 
-    public async Task<RuleDto?> UpdateAsync(int id, RuleDto dto)
+    public async Task<RuleResponse?> UpdateAsync(int id, UpdateRuleRequest request)
     {
         var rule = await _context.Rules.FindAsync(id);
 
         if (rule == null)
             return null;
 
-        rule.Name = dto.Name;
-        rule.Description = dto.Description;
-        rule.IsActive = dto.IsActive;
+        rule.Name = request.Name;
+        rule.Description = request.Description;
+        rule.IsActive = request.IsActive;
 
         await _context.SaveChangesAsync();
 
-        return new RuleDto
+        return new RuleResponse
         {
             Id = rule.Id,
             Name = rule.Name,
@@ -95,3 +100,4 @@ public class RuleService : IRuleService
         return true;
     }
 }
+
