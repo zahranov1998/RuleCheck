@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuleCheck.Application.Interfaces;
+namespace RuleCheck.Application.Interfaces.Services;
 
 public interface IRuleService
 {

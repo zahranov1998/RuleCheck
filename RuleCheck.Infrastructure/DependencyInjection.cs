@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RuleCheck.Application.Interfaces;
+using RuleCheck.Application.Interfaces.Services;
 using RuleCheck.Infrastructure.Persistence;
 using RuleCheck.Infrastructure.Services;
 
