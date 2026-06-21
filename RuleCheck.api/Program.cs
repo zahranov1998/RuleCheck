@@ -3,6 +3,8 @@ using FluentValidation;
 using RuleCheck.Application;
 using RuleCheck.Application.Validation;
 using RuleCheck.Infrastructure;
+using RuleCheck.Application.Interfaces.Services;
+using RuleCheck.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

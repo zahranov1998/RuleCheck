@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RuleCheck.Application.Dtos;
+namespace RuleCheck.Application.Dtos.Rules;
 
-public class UpdateRuleRequest
+public class CreateRuleRequest
 {
     public string Name { get; set; }
     public string? Description { get; set; }
-    public bool IsActive { get; set; }
 }

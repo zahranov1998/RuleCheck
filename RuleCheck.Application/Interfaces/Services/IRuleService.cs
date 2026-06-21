@@ -1,4 +1,4 @@
-﻿using RuleCheck.Application.Dtos;
+﻿using RuleCheck.Application.Dtos.Rules;
 using System;
 using System.Collections.Generic;
 using System.Linq;

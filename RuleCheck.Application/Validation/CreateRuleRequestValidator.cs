@@ -1,10 +1,10 @@
-﻿using RuleCheck.Application.Dtos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
+using RuleCheck.Application.Dtos.Rules;
 
 namespace RuleCheck.Application.Validation;
 

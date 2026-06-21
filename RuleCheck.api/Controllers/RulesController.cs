@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RuleCheck.Application.Dtos;
+using RuleCheck.Application.Dtos.Rules;
 using RuleCheck.Application.Interfaces.Services;
 
 namespace RuleCheck.Api.Controllers;

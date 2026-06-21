@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RuleCheck.Application.Dtos;
+using RuleCheck.Application.Dtos.Rules;
 using RuleCheck.Application.Interfaces.Persistence;
 using RuleCheck.Application.Interfaces.Services;
 using RuleCheck.Domain.Entities;

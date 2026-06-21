@@ -8,6 +8,7 @@ namespace RuleCheck.Domain.Enums;
 
 public enum RuleType
 {
-    Regex = 1,
-    Range = 2
+    Required = 1,
+    Regex = 2,
+    Range = 3
 }

@@ -1,4 +1,4 @@
-﻿namespace RuleCheck.Application.Dtos;
+﻿namespace RuleCheck.Application.Dtos.Rules;
 
 public class RuleResponse
 {
