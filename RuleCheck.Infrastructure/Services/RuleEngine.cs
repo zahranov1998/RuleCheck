@@ -1,11 +1,8 @@
 ﻿using RuleCheck.Application.Dtos.Validate;
 using RuleCheck.Application.Interfaces.Persistence;
 using RuleCheck.Application.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RuleCheck.Domain.Enums;
+using System.Text.RegularExpressions;
 
 namespace RuleCheck.Infrastructure.Services;
 
@@ -26,15 +23,53 @@ public class RuleEngine : IRuleEngine
 
         foreach (var rule in rules.Where(r => r.IsActive))
         {
-            if (!request.Data.ContainsKey(rule.Name))
+            request.Data.TryGetValue(rule.FieldName, out var value);
+
+            switch (rule.RuleType)
             {
-                response.Errors.Add($"{rule.Name} is required");
-                response.IsValid = false;
+                case RuleType.Required:
+                    if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
+                    {
+                        response.Errors.Add(rule.ErrorMessage);
+                    }
+                    break;
+
+                case RuleType.Regex:
+                    if (value != null &&
+                        !string.IsNullOrWhiteSpace(rule.Pattern))
+                    {
+                        var isMatch = Regex.IsMatch(
+                            value.ToString()!,
+                            rule.Pattern);
+
+                        if (!isMatch)
+                        {
+                            response.Errors.Add(rule.ErrorMessage);
+                        }
+                    }
+                    break;
+
+                case RuleType.Range:
+                    if (value != null &&
+                        int.TryParse(value.ToString(), out var intValue))
+                    {
+                        if (rule.MinValue.HasValue &&
+                            intValue < rule.MinValue.Value)
+                        {
+                            response.Errors.Add(rule.ErrorMessage);
+                        }
+
+                        if (rule.MaxValue.HasValue &&
+                            intValue > rule.MaxValue.Value)
+                        {
+                            response.Errors.Add(rule.ErrorMessage);
+                        }
+                    }
+                    break;
             }
         }
 
-        if (!response.Errors.Any())
-            response.IsValid = true;
+        response.IsValid = !response.Errors.Any();
 
         return response;
     }

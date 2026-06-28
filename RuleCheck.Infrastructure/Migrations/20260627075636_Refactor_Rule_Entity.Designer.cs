@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RuleCheck.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using RuleCheck.Infrastructure.Persistence;
 namespace RuleCheck.Infrastructure.Migrations
 {
     [DbContext(typeof(RuleCheckDbContext))]
-    partial class RuleCheckDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260627075636_Refactor_Rule_Entity")]
+    partial class Refactor_Rule_Entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

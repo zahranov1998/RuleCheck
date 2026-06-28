@@ -4,6 +4,8 @@ using RuleCheck.Application.Interfaces.Persistence;
 using RuleCheck.Application.Interfaces.Services;
 using RuleCheck.Domain.Entities;
 using RuleCheck.Infrastructure.Persistence;
+using System.Data;
+using Rule = RuleCheck.Domain.Entities.Rule;
 
 namespace RuleCheck.Infrastructure.Services;
 
@@ -22,8 +24,12 @@ public class RuleService : IRuleService
         return rules.Select(r => new RuleResponse
         {
             Id = r.Id,
-            Name = r.Name,
-            Description = r.Description,
+            FieldName = r.FieldName,
+            RuleType = r.RuleType,
+            Pattern = r.Pattern,
+            MinValue = r.MinValue,
+            MaxValue = r.MaxValue,
+            ErrorMessage = r.ErrorMessage,
             IsActive = r.IsActive
         });
     }
@@ -38,8 +44,12 @@ public class RuleService : IRuleService
         return new RuleResponse
         {
             Id = rule.Id,
-            Name = rule.Name,
-            Description = rule.Description,
+            FieldName = rule.FieldName,
+            RuleType = rule.RuleType,
+            Pattern = rule.Pattern,
+            MinValue = rule.MinValue,
+            MaxValue = rule.MaxValue,
+            ErrorMessage = rule.ErrorMessage,
             IsActive = rule.IsActive
         };
     }
@@ -48,18 +58,26 @@ public class RuleService : IRuleService
     {
         var rule = new Rule
         {
-            Name = request.Name,
-            Description = request.Description,
-            IsActive = true // default
+            FieldName = request.FieldName,
+            RuleType = request.RuleType,
+            Pattern = request.Pattern,
+            MinValue = request.MinValue,
+            MaxValue = request.MaxValue,
+            ErrorMessage = request.ErrorMessage,
+            IsActive = request.IsActive
         };
 
-         await _repository.AddAsync(rule);
+        await _repository.AddAsync(rule);
 
         return new RuleResponse
         {
             Id = rule.Id,
-            Name = rule.Name,
-            Description = rule.Description,
+            FieldName = rule.FieldName,
+            RuleType = rule.RuleType,
+            Pattern = rule.Pattern,
+            MinValue = rule.MinValue,
+            MaxValue = rule.MaxValue,
+            ErrorMessage = rule.ErrorMessage,
             IsActive = rule.IsActive
         };
     }
@@ -71,8 +89,12 @@ public class RuleService : IRuleService
         if (rule == null)
             return null;
 
-        rule.Name = request.Name;
-        rule.Description = request.Description;
+        rule.FieldName = request.FieldName;
+        rule.RuleType = request.RuleType;
+        rule.Pattern = request.Pattern;
+        rule.MinValue = request.MinValue;
+        rule.MaxValue = request.MaxValue;
+        rule.ErrorMessage = request.ErrorMessage;
         rule.IsActive = request.IsActive;
 
         await _repository.UpdateAsync(rule);
@@ -80,9 +102,13 @@ public class RuleService : IRuleService
         return new RuleResponse
         {
             Id = rule.Id,
-            Name = rule.Name,
-            Description = rule.Description,
-            IsActive = rule.IsActive
+            FieldName = rule.FieldName,
+            RuleType = rule.RuleType,
+            Pattern = rule.Pattern,
+            MinValue = rule.MinValue,
+            MaxValue = rule.MaxValue,
+            ErrorMessage = rule.ErrorMessage,
+            IsActive = rule.IsActive,
         };
     }
 
