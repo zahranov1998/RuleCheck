@@ -6,6 +6,7 @@ using RuleCheck.Application.Interfaces.Services;
 using RuleCheck.Infrastructure.Persistence;
 using RuleCheck.Infrastructure.Repositories;
 using RuleCheck.Infrastructure.Services;
+using RuleCheck.Infrastructure.Services.Validators;
 
 namespace RuleCheck.Infrastructure;
 
@@ -17,8 +18,13 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IRuleRepository, RuleRepository>();
+
         services.AddScoped<IRuleService, RuleService>();
         services.AddScoped<IRuleEngine, RuleEngine>();
+
+        services.AddScoped<IRuleValidator, RequiredRuleValidator>();
+        services.AddScoped<IRuleValidator, RegexRuleValidator>();
+        services.AddScoped<IRuleValidator, RangeRuleValidator>();
 
 
         return services;

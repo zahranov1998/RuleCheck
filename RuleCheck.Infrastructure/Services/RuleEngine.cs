@@ -9,13 +9,18 @@ namespace RuleCheck.Infrastructure.Services;
 public class RuleEngine : IRuleEngine
 {
     private readonly IRuleRepository _ruleRepository;
+    private readonly IEnumerable<IRuleValidator> _validators;
 
-    public RuleEngine(IRuleRepository ruleRepository)
+    public RuleEngine(
+        IRuleRepository ruleRepository,
+        IEnumerable<IRuleValidator> validators)
     {
         _ruleRepository = ruleRepository;
+        _validators = validators;
     }
 
-    public async Task<ValidateResponse> ValidateAsync(ValidateRequest request)
+    public async Task<ValidateResponse> ValidateAsync(
+        ValidateRequest request)
     {
         var rules = await _ruleRepository.GetAllAsync();
 
@@ -23,49 +28,24 @@ public class RuleEngine : IRuleEngine
 
         foreach (var rule in rules.Where(r => r.IsActive))
         {
-            request.Data.TryGetValue(rule.FieldName, out var value);
+            request.Data.TryGetValue(
+                rule.FieldName,
+                out var value);
 
-            switch (rule.RuleType)
+            var validator = _validators.FirstOrDefault(
+                v => v.RuleType == rule.RuleType);
+
+            if (validator == null)
             {
-                case RuleType.Required:
-                    if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
-                    {
-                        response.Errors.Add(rule.ErrorMessage);
-                    }
-                    break;
+                throw new InvalidOperationException(
+                    $"No validator found for rule type {rule.RuleType}");
+            }
 
-                case RuleType.Regex:
-                    if (value != null &&
-                        !string.IsNullOrWhiteSpace(rule.Pattern))
-                    {
-                        var isMatch = Regex.IsMatch(
-                            value.ToString()!,
-                            rule.Pattern);
+            var isValid = validator.Validate(rule, value);
 
-                        if (!isMatch)
-                        {
-                            response.Errors.Add(rule.ErrorMessage);
-                        }
-                    }
-                    break;
-
-                case RuleType.Range:
-                    if (value != null &&
-                        int.TryParse(value.ToString(), out var intValue))
-                    {
-                        if (rule.MinValue.HasValue &&
-                            intValue < rule.MinValue.Value)
-                        {
-                            response.Errors.Add(rule.ErrorMessage);
-                        }
-
-                        if (rule.MaxValue.HasValue &&
-                            intValue > rule.MaxValue.Value)
-                        {
-                            response.Errors.Add(rule.ErrorMessage);
-                        }
-                    }
-                    break;
+            if (!isValid)
+            {
+                response.Errors.Add(rule.ErrorMessage);
             }
         }
 
