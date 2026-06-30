@@ -1,0 +1,10 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=35179ec8_002De969_002D40ee_002Dad4d_002Da3de3e064333/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="RangeRuleValidatorTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::2091A8C0-A76F-43A4-92A1-BECA0CD5C61A::net9.0::RuleCheck.Tests.Validators.RangeRuleValidatorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2091A8C0-A76F-43A4-92A1-BECA0CD5C61A::net9.0::RuleCheck.Tests.Validators.RegexRuleValidatorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2091A8C0-A76F-43A4-92A1-BECA0CD5C61A::net9.0::RuleCheck.Tests.Validators.RequiredRuleValidatorTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2091A8C0-A76F-43A4-92A1-BECA0CD5C61A::net9.0::RuleCheck.Tests.Services.RuleEngineTests.ValidateAsync_Should_ReturnErrors_When_RequestIsInvalid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::2091A8C0-A76F-43A4-92A1-BECA0CD5C61A::net9.0::RuleCheck.Tests.Services.RuleEngineTests.ValidateAsync_Should_ReturnValid_When_NoRulesExist&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

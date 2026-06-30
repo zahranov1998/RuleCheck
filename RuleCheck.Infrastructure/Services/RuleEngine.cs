@@ -32,7 +32,7 @@ public class RuleEngine : IRuleEngine
                 rule.FieldName,
                 out var value);
 
-            var validator = _validators.FirstOrDefault(
+            var validator = _validators.SingleOrDefault(
                 v => v.RuleType == rule.RuleType);
 
             if (validator == null)
